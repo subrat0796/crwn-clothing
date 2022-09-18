@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
@@ -43,7 +43,7 @@ const SignInForm = () => {
 			const { user } = await signAuthUserWithEmailAndPassword(email, password);
 			resetFormFields();
 
-			return toast.success('Successfully logged in', {
+			return toast.success("Successfully logged in", {
 				position: "top-right",
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -51,26 +51,24 @@ const SignInForm = () => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				});
-
+			});
 		} catch (err) {
 			if (err.code === "auth/wrong-password" || err) {
-				return toast.error('Wrong credentails!', {
+				return toast.error("Wrong credentails!", {
 					position: "top-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-					});
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 			}
 		}
 	};
 
 	return (
 		<div className="sign-in-container">
-			
 			<h2>I already have and account</h2>
 			<span>Sign in with your email and password</span>
 
