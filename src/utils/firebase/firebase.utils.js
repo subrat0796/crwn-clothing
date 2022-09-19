@@ -10,7 +10,16 @@ import {
 	onAuthStateChanged,
 } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	collection,
+	writeBatch,
+	query,
+	getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAHWCCvUOgPJsuwPGFWltIle2sHuW8IZfQ",
@@ -31,6 +40,35 @@ googleProvider.setCustomParameters({
 
 const auth = getAuth();
 const db = getFirestore();
+
+// add collections and documents to firestore
+const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+	const collectionRef = collection(db, collectionKey);
+	const batch = writeBatch(db);
+
+	objectsToAdd.forEach((element) => {
+		const docRef = doc(collectionRef, element.title.toLowerCase());
+		batch.set(docRef, element);
+	});
+
+	await batch.commit();
+	console.log("done");
+};
+
+// pull data from firestore
+const getCatagoriesAndDocuments = async () => {
+	const collectionRef = collection(db, "catagories");
+	const q = query(collectionRef);
+
+	const querySnapshot = await getDocs(q);
+	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+		const { title, items } = docSnapshot.data();
+		acc[title.toLowerCase()] = items;
+		return acc;
+	}, {});
+
+	return categoryMap;
+};
 
 // signing in with google popup
 const SignInWithGooglePopup = () => {
@@ -96,4 +134,6 @@ export {
 	signAuthUserWithEmailAndPassword,
 	signOutUser,
 	onAuthStateChangedListener,
+	addCollectionAndDocuments,
+	getCatagoriesAndDocuments,
 };
