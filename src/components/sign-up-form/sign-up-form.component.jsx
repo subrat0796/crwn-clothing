@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
+
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import {
@@ -20,6 +24,8 @@ const SignUpForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
 
+	const navigate = useNavigate();
+
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
@@ -29,6 +35,8 @@ const SignUpForm = () => {
 	const resetFormFields = () => {
 		setFormFields(defaultFormFields);
 	};
+
+	const navigateOnSuccessHandler = () => navigate("/shop");
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
@@ -45,12 +53,41 @@ const SignUpForm = () => {
 			);
 
 			await createUserDocumentFromAuth(user, { displayName });
+			navigateOnSuccessHandler();
 			resetFormFields();
+
+			return toast.success("Account created successfully", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 		} catch (err) {
 			if (err.code === "auth/email-already-in-use") {
-				alert("Cannot create user , email already exist");
+				// alert("Cannot create user , email already exist");
+				return toast.error("Cannot create user, email already exist", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 			} else {
-				console.log(`Error in creating user account :${err}`);
+				// console.log(`Error in creating user account :${err}`);
+				return toast.error("There was an error while creating the account", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 			}
 		}
 	};

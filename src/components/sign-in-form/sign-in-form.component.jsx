@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
 	SignInWithGooglePopup,
 	signAuthUserWithEmailAndPassword,
@@ -22,6 +23,8 @@ const SignInForm = () => {
 
 	const { email, password } = formFields;
 
+	const navigate = useNavigate();
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
@@ -32,8 +35,32 @@ const SignInForm = () => {
 		setFormFields(defaultFormFields);
 	};
 
+	const navigateOnSuccessHandler = () => navigate("/shop");
+
 	const signInWithGoogle = async () => {
-		await SignInWithGooglePopup();
+		try {
+			await SignInWithGooglePopup();
+			navigateOnSuccessHandler();
+			return toast.success("Successfully signed in", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} catch (err) {
+			return toast.error("There was an error while Signing in !!", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
 	};
 
 	const handleFormSubmit = async (e) => {
@@ -42,7 +69,7 @@ const SignInForm = () => {
 		try {
 			const { user } = await signAuthUserWithEmailAndPassword(email, password);
 			resetFormFields();
-
+			navigateOnSuccessHandler();
 			return toast.success("Successfully logged in", {
 				position: "top-right",
 				autoClose: 5000,
@@ -99,7 +126,11 @@ const SignInForm = () => {
 					<Button type="submit" onClick={handleFormSubmit}>
 						Sign In
 					</Button>
-					<Button type="button" onClick={signInWithGoogle} buttonType="google">
+					<Button
+						type="button"
+						onClick={signInWithGoogle}
+						buttonType={BUTTON_TYPE_CLASSES.google}
+					>
 						Google sign in
 					</Button>
 				</div>
