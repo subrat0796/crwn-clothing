@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -7,7 +7,11 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 
 import { ReactComponent as CrwnLogo } from "../../assets/086 crown.svg";
 
-import { CartsContext } from "../../contexts/cart.context";
+// import { CartsContext } from "../../contexts/cart.context";
+import {
+	selectCartItems,
+	selectIsCartOpen,
+} from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
@@ -20,8 +24,9 @@ import {
 
 const Navigation = () => {
 	const currentUser = useSelector(selectCurrentUser);
+	const cartItems = useSelector(selectCartItems);
 
-	const { isCartOpen } = useContext(CartsContext);
+	const isCartOpen = useSelector(selectIsCartOpen);
 	return (
 		<Fragment>
 			<NavigationContainer>

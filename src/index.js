@@ -8,8 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-import { CartsProvider } from "./contexts/cart.context";
 import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,24 +15,18 @@ root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<BrowserRouter>
-				{/* <UserProvider> */}
-				{/* <CategoriesProvider> */}
-				<CartsProvider>
-					<App />
-					<ToastContainer
-						position="top-right"
-						autoClose={5000}
-						hideProgressBar={false}
-						newestOnTop={false}
-						closeOnClick
-						rtl={false}
-						pauseOnFocusLoss
-						draggable
-						pauseOnHover
-					/>
-				</CartsProvider>
-				{/* </CategoriesProvider> */}
-				{/* </UserProvider> */}
+				<App />
+				<ToastContainer
+					position="top-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+				/>
 			</BrowserRouter>
 		</Provider>
 	</React.StrictMode>
