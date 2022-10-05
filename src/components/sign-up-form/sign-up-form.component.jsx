@@ -42,8 +42,17 @@ const SignUpForm = () => {
 		event.preventDefault();
 
 		if (password !== confirmPassword) {
-			alert("Please check passwords");
-			return;
+			// alert("Please check passwords");
+			// return;
+			return toast.error("Please match the passwords", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 		}
 
 		try {

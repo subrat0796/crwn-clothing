@@ -12,8 +12,8 @@ import Home from "./routes/home/home.component";
 import Authentication from "./routes/authentication/authenticaiton.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
-import { setCurrentUser } from "./store/user/user.action";
-import { setCategoriesMap } from "./store/category/category.action";
+import { setCurrentUser } from "./features/user/userAction";
+import { setCategoriesMap } from "./features/category/categoryAction";
 
 const App = () => {
 	// this never changes , all we do is add dispatch in dependencies to remove liniting error

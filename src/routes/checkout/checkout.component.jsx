@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import {
 	selectCartItems,
 	selectCartTotal,
-} from "../../store/cart/cart.selector";
+} from "../../features/cart/cartSelector";
 
 // import { CartsContext } from "../../contexts/cart.context";
 

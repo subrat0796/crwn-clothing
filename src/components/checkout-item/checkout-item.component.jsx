@@ -1,12 +1,12 @@
 // import { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCartItems } from "../../store/cart/cart.selector.js";
+import { selectCartItems } from "../../features/cart/cartSelector";
 
 import {
 	addItemToCart,
 	deleteItemFromCart,
 	removeItemFromCart,
-} from "../../store/cart/cart.action.js";
+} from "../../features/cart/cartAction";
 
 // import { CartsContext } from "../../contexts/cart.context";
 

@@ -11,8 +11,8 @@ import { ReactComponent as CrwnLogo } from "../../assets/086 crown.svg";
 import {
 	selectCartItems,
 	selectIsCartOpen,
-} from "../../store/cart/cart.selector";
-import { selectCurrentUser } from "../../store/user/user.selector";
+} from "../../features/cart/cartSelector";
+import { selectCurrentUser } from "../../features/user/userSelector";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
@@ -24,7 +24,6 @@ import {
 
 const Navigation = () => {
 	const currentUser = useSelector(selectCurrentUser);
-	const cartItems = useSelector(selectCartItems);
 
 	const isCartOpen = useSelector(selectIsCartOpen);
 	return (
