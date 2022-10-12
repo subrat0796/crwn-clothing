@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import {
+	addCollectionAndDocuments,
 	createUserDocumentFromAuth,
-	getCatagoriesAndDocuments,
 	onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
 import Navigation from "./routes/navigation/navigation.component";
@@ -13,7 +13,8 @@ import Authentication from "./routes/authentication/authenticaiton.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { setCurrentUser } from "./features/user/userAction";
-import { setCategoriesMap } from "./features/category/categoryAction";
+import { fetchCategories } from "./features/category/categorySlice";
+import SHOP_DATA from "./shop-data";
 
 const App = () => {
 	// this never changes , all we do is add dispatch in dependencies to remove liniting error
@@ -27,12 +28,7 @@ const App = () => {
 			dispatch(setCurrentUser(user));
 		});
 
-		const getCategoriesMap = async () => {
-			const categoriesMap = await getCatagoriesAndDocuments();
-			dispatch(setCategoriesMap(categoriesMap));
-		};
-
-		getCategoriesMap();
+		dispatch(fetchCategories());
 
 		return unsubscribe;
 	}, [dispatch]);

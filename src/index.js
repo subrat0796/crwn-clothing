@@ -3,14 +3,16 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { Elements } from "@stripe/react-stripe-js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 import { store, persistor } from "./app/store";
+import { stripePromise } from "./utils/stripe/stripe.utils";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,18 +20,20 @@ root.render(
 		<Provider store={store}>
 			<PersistGate persistor={persistor}>
 				<BrowserRouter>
-					<App />
-					<ToastContainer
-						position="top-right"
-						autoClose={5000}
-						hideProgressBar={false}
-						newestOnTop={false}
-						closeOnClick
-						rtl={false}
-						pauseOnFocusLoss
-						draggable
-						pauseOnHover
-					/>
+					<Elements stripe={stripePromise}>
+						<App />
+						<ToastContainer
+							position="top-right"
+							autoClose={5000}
+							hideProgressBar={false}
+							newestOnTop={false}
+							closeOnClick
+							rtl={false}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+						/>
+					</Elements>
 				</BrowserRouter>
 			</PersistGate>
 		</Provider>
