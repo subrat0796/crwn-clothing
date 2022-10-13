@@ -14,7 +14,6 @@ import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { setCurrentUser } from "./features/user/userAction";
 import { fetchCategories } from "./features/category/categorySlice";
-import SHOP_DATA from "./shop-data";
 
 const App = () => {
 	// this never changes , all we do is add dispatch in dependencies to remove liniting error

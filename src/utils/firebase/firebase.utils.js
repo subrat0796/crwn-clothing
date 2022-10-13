@@ -55,9 +55,9 @@ const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
 	console.log("done");
 };
 
-// pull data from firestore
+// pull collection from database
 const getCatagoriesAndDocuments = async () => {
-	const collectionRef = collection(db, "catagories");
+	const collectionRef = collection(db, "collections");
 	const q = query(collectionRef);
 
 	const querySnapshot = await getDocs(q);
